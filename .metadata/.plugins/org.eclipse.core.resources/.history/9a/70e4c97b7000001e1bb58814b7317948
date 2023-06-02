@@ -1,0 +1,2 @@
+spring.application.name=helloserver
+server.port=8091

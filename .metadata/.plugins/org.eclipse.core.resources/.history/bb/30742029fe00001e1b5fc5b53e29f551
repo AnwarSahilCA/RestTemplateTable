@@ -1,0 +1,15 @@
+package com.ust.helo.Repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ust.helo.Entity.Product;
+
+public interface jpaRepository extends JpaRepository<Product,Long> {
+
+	void save(Product product);
+
+	Optional<Product> findById(int id);
+
+}

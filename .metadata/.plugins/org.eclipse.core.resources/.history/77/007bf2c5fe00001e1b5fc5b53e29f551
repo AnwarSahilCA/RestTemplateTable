@@ -1,0 +1,43 @@
+package com.ust.helo.Controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ust.helo.Entity.Product;
+import com.ust.helo.Repository.jpaRepository;
+
+@RestController
+@RequestMapping("/")
+public class Controller {
+	@Autowired
+	jpaRepository jrepo;
+	@PostMapping("/create")
+	public ResponseEntity<Product> create(@RequestBody Product product){
+		jrepo.save(product);
+		return ResponseEntity.status(HttpStatus.OK).body(product);
+		
+	}
+	@GetMapping("/retrieve/{id}")
+	public ResponseEntity<Product> retrieve(@PathVariable long id){
+		Optional<Product> opt=jrepo.findById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(opt.get());
+		
+	
+	}
+	@GetMapping("/retrieveall")
+	public ResponseEntity<List<Product>> retrieveall(){
+		List<Product> l1=jrepo.findAll();
+		return ResponseEntity.status(HttpStatus.OK).body(l1);
+	}
+
+}
